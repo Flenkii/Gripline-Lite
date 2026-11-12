@@ -24,6 +24,8 @@ struct Settings {
   std::atomic<int> drivatar_level{2};      // the same for the Drivatars (festival cars)
   std::atomic<bool> walking{true};         // F / left stick press gets out of the stopped car
   std::atomic<float> walk_eye{1.60f};      // the walker's eye, metres above the ground
+  std::atomic<int> time_of_day{0};         // 0 the game's own, else a time (hooks/gripline_time.cpp)
+  std::atomic<int> time_speed{0};          // 0 normal, 1 slow, 2 stopped, 3 fast
 };
 
 Settings& Get();
@@ -31,6 +33,14 @@ void LoadSettings();  // once, first use
 
 // Traffic and Drivatar limits from the settings (hooks/gripline_traffic.cpp), main loop.
 void ApplyTraffic(uint8_t* base);
+
+// Time of day (hooks/gripline_time.cpp), main loop: free roam offline only.
+void ApplyTime(uint8_t* base);
+int TimeChoiceCount();
+int TimeSpeedCount();
+float TimeChoiceSeconds(int choice);
+void RequestTimeJump();  // set the chosen time again (picked in the menu)
+float ShownClock();      // the game's clock in seconds after midnight, -1 without a world
 
 // The Dashboard Cam is the view drawn now (set by the camera hook every frame).
 bool DashCamDrawn();

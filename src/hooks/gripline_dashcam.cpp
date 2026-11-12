@@ -200,6 +200,7 @@ extern "C" REX_FUNC(GriplineDirectorStep) {
   }
   GriplineDirectorStepOriginal(ctx, base);
   forza::gripline::ApplyTraffic(base);
+  forza::gripline::ApplyTime(base);
   {  // Walking (hooks/gripline_walking.cpp): the walker's eye in place of the camera
     float walk_view[16], walk_pos[3];
     if (forza::gripline::WalkFrame(ctx, base, director, walk_view, walk_pos)) {

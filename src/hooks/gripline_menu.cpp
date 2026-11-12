@@ -58,6 +58,7 @@ void Save() {
                int(settings.dashcam.load()), settings.dash_forward.load(), settings.dash_up.load(),
                settings.dash_pitch.load());
   std::fprintf(f, "walking=%d\nwalk_eye=%.2f\n", int(settings.walking.load()), settings.walk_eye.load());
+  std::fprintf(f, "time_of_day=%d\ntime_speed=%d\n", settings.time_of_day.load(), settings.time_speed.load());
   std::fclose(f);
 }
 
@@ -79,6 +80,8 @@ constexpr Row kRows[] = {
     {"Drivatare", "Drivatars"},
     {"Walking (F / linker Stick)", "Walking (F / left stick)"},
     {"Walking Augenhöhe", "Walking eye height"},
+    {"Tageszeit", "Time of day"},
+    {"Zeit läuft", "Time runs"},
 };
 constexpr int kRowCount = int(sizeof(kRows) / sizeof(kRows[0]));
 int row = 0;
@@ -96,6 +99,33 @@ std::string Value(int r, bool de) {
     case 7: return de ? "Rechts drücken" : "Press Right";
     case 10: return settings.walking ? (de ? "An" : "On") : (de ? "Aus" : "Off");
     case 11: std::snprintf(text, sizeof(text), "%.2f m", settings.walk_eye.load()); return text;
+    case 12: {
+      static const char* kDe[] = {"Original (Spiel)", "Morgengrauen", "Morgen", "Mittag",
+                                  "Nachmittag", "Sonnenuntergang", "Mitternacht"};
+      static const char* kEn[] = {"Stock (game)", "Dawn", "Morning", "Midday",
+                                  "Afternoon", "Sunset", "Midnight"};
+      const int c = std::clamp(settings.time_of_day.load(), 0, TimeChoiceCount() - 1);
+      std::string v = de ? kDe[c] : kEn[c];
+      if (c > 0) {
+        const int t = int(TimeChoiceSeconds(c));
+        std::snprintf(text, sizeof(text), " %02d:%02d", t / 3600, t % 3600 / 60);
+        v += text;
+      }
+      const float now = ShownClock();
+      if (now >= 0.0f) {
+        const int t = int(now);
+        std::snprintf(text, sizeof(text), de ? "   (jetzt %02d:%02d)" : "   (now %02d:%02d)", t / 3600 % 24,
+                      t % 3600 / 60);
+        v += text;
+      }
+      return v;
+    }
+    case 13: {
+      static const char* kDe[] = {"Normal", "Langsam (1/4)", "Angehalten", "Schnell (4x)"};
+      static const char* kEn[] = {"Normal", "Slow (1/4)", "Stopped", "Fast (4x)"};
+      const int s = std::clamp(settings.time_speed.load(), 0, TimeSpeedCount() - 1);
+      return de ? kDe[s] : kEn[s];
+    }
     default: {
       static const char* kDe[] = {"Aus", "Wenig", "Normal", "Mehr", "Viel", "Maximal"};
       static const char* kEn[] = {"Off", "Less", "Normal", "More", "Lots", "Maximum"};
@@ -121,6 +151,11 @@ void Change(int r, int step) {
     case 9: settings.drivatar_level = std::clamp(settings.drivatar_level + step, 0, 5); break;
     case 10: settings.walking = !settings.walking; break;
     case 11: add(settings.walk_eye, step * 0.05f, 0.50f, 2.00f); break;
+    case 12:
+      settings.time_of_day = std::clamp(settings.time_of_day + step, 0, TimeChoiceCount() - 1);
+      RequestTimeJump();
+      break;
+    case 13: settings.time_speed = std::clamp(settings.time_speed + step, 0, TimeSpeedCount() - 1); break;
     default:
       if (step > 0) {
         settings.dash_forward = kDefaultForward;
@@ -148,7 +183,7 @@ void Draw() {
   if (!InCarView())
     body += de ? "\nTipp: Innenansicht wählen, dann siehst du Änderungen sofort."
                : "\nTip: pick the in-car view to see changes right away.";
-  HudShow("GRIPLINE LITE 1.0", body, 3600.0, false);
+  HudShow("GRIPLINE LITE 1.1", body, 3600.0, false);
 }
 
 bool MenuKeyPressed() {
@@ -196,6 +231,8 @@ void LoadSettings() {
       else if (k == "dash_pitch") settings.dash_pitch = std::clamp(v, -20.0f, 20.0f);
       else if (k == "walking") settings.walking = v != 0;
       else if (k == "walk_eye") settings.walk_eye = std::clamp(v, 0.50f, 2.00f);
+      else if (k == "time_of_day") settings.time_of_day = std::clamp(int(v), 0, 6);
+      else if (k == "time_speed") settings.time_speed = std::clamp(int(v), 0, 3);
     }
     std::fclose(f);
     REXLOG_INFO("Gripline: settings loaded from {}", kFile);

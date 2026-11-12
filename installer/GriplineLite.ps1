@@ -10,13 +10,13 @@
 param([switch]$NoGui, [string]$Action = "", [string]$Project = "")
 
 $ErrorActionPreference = "Stop"
-$Version = "1.0"
+$Version = "1.1"
 $Marker = "Gripline Lite"
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Files = Join-Path (Split-Path -Parent $Here) "src\hooks"
 $HookFiles = @("gripline_settings.h", "gripline_wheel.cpp", "gripline_dashcam.cpp",
                "gripline_menu.cpp", "gripline_traffic.cpp", "gripline_walking.cpp",
-               "gripline_walk_fade.h", "gripline_door_sounds.h")
+               "gripline_walk_fade.h", "gripline_door_sounds.h", "gripline_time.cpp")
 $German = (Get-UICulture).TwoLetterISOLanguageName -eq "de"
 
 function T([string]$de, [string]$en) { if ($German) { $de } else { $en } }
@@ -102,7 +102,8 @@ function Get-State([string]$proj) {
   $inp = [IO.File]::ReadAllText($p.Input).Contains($Marker)
   $files = -not ($HookFiles | Where-Object { -not (Test-Path (Join-Path $p.Hooks $_)) })
   $stamp = if (Test-Path $p.Stamp) { (Get-Content $p.Stamp -Raw).Trim() } else { "" }
-  if ($cmake -and $inp -and $files -and $stamp) { return "installed:$stamp" }
+  # An older version may lack a newer hook file; installing the update copies all of them.
+  if ($cmake -and $inp -and $stamp -and ($files -or $stamp -ne $Version)) { return "installed:$stamp" }
   if ($stamp -or $cmake -or $inp) { return "broken" }
   "none"
 }
@@ -125,7 +126,7 @@ function Install([string]$proj) {
   $at = Find-One $cmake.Lines '^\s*src/hooks/camera_fov\.cpp\s*$' "src/hooks/camera_fov.cpp"
   $indent = ($cmake.Lines[$at] -replace '\S.*$', '')
   $add = @("gripline_wheel.cpp", "gripline_dashcam.cpp", "gripline_menu.cpp", "gripline_traffic.cpp",
-           "gripline_walking.cpp") |
+           "gripline_walking.cpp", "gripline_time.cpp") |
          ForEach-Object { "${indent}src/hooks/$_" }
   $cmake.Lines.InsertRange($at + 1, [string[]]$add)
 

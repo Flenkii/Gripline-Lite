@@ -1,4 +1,4 @@
-# Gripline Lite 1.0 for Forza Horizon 1: ReImagined
+# Gripline Lite 1.1 for Forza Horizon 1: ReImagined
 
 <img src="installer/logo.png" width="96" align="right">
 
@@ -13,6 +13,8 @@ Everything can be changed live in game with **F6**, without restarting.
 | **Walking** | Get out of the stopped car and walk around (F / left stick press), with fade, door sounds, collision and a walking HUD. Offline only. |
 | **Traffic** | Civilian traffic: Off, Less, Normal, More, Lots, Maximum. |
 | **Drivatars** | The same for the Drivatars in free roam. |
+| **Time of day** | Set the time: Dawn, Morning, Midday, Afternoon, Sunset or Midnight (or keep the game's own). Free roam, offline only. |
+| **Time runs** | How fast the day passes: Normal, Slow (1/4), Stopped or Fast (4x). |
 
 Gripline Lite is the little brother of [Gripline](https://github.com/Flenkii/Gripline) for Forza Horizon 2.
 
@@ -20,7 +22,7 @@ Gripline Lite is the little brother of [Gripline](https://github.com/Flenkii/Gri
 
 You need ReImagined installed and built once with its launcher (Title Update 4).
 
-1. Download **`Gripline Lite Installer 1.0.exe`** from the Releases page.
+1. Download **`Gripline Lite Installer 1.1.exe`** from the Releases page.
 2. Close the game and double-click it. Windows may say "Windows protected your PC" (the file
    is not code-signed): click **More info › Run anyway**. Click **Install**. It finds ReImagined by itself; if not, choose the
    `...\ForzaHorizon1-ReImagined\project\forza-recomp` folder.
@@ -43,6 +45,8 @@ You need ReImagined installed and built once with its launcher (Title Update 4).
 
 Settings are saved to `gripline.ini` in ReImagined's `runtime` folder.
 Traffic and Drivatar levels apply in free roam; races and online sessions keep the game's own traffic.
+Time of day and time speed apply in free roam offline; races and online sessions keep the game's own time.
+FH1 has no weather system, so there is no weather option.
 
 ## How it works
 
@@ -58,6 +62,7 @@ changed, nothing is downloaded. When it opens, the installer only asks GitHub wh
 | `gripline_dashcam.cpp` | Dashboard Cam (moves the in-car view after the camera director's step), hides wheel and hands, the camera button. |
 | `gripline_traffic.cpp` | Scales the AI spawner's tunables (MaxTraffic/MinTraffic, MaxFestival/MinFestival, spawn intervals). |
 | `gripline_walking.cpp` | Walking (camera at the walker's eye, the game's collision world, fade, door sounds, walking HUD). |
+| `gripline_time.cpp` | Time of day: sets and slows/stops the world's clock (seconds after midnight) in offline free roam. |
 | `gripline_menu.cpp` | The F6 menu (ReImagined's HUD overlay) and `gripline.ini`. |
 
 ## Credits and license
@@ -72,9 +77,9 @@ changed, nothing is downloaded. When it opens, the installer only asks GitHub wh
 ## Deutsch (kurz)
 
 **Gripline Lite** bringt Lenkrad 1:1 (900°), Hände ausblenden, Dashboard Cam, Walking (aussteigen mit F)
-und einstellbaren Verkehr in Forza Horizon 1: ReImagined. Alles live im Spiel mit **F6**.
+einstellbaren Verkehr sowie Tageszeit und Zeitablauf in Forza Horizon 1: ReImagined. Alles live im Spiel mit **F6**.
 
-1. Spiel schließen, **`Gripline Lite Installer 1.0.exe`** starten (bei der Windows-Warnung: Weitere Informationen › Trotzdem ausführen), **Installieren**.
+1. Spiel schließen, **`Gripline Lite Installer 1.1.exe`** starten (bei der Windows-Warnung: Weitere Informationen › Trotzdem ausführen), **Installieren**.
 2. ReImagined-Launcher: **Setup › Build › Rebuild**.
 3. Im Spiel **F6** drücken.
 
