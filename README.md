@@ -29,7 +29,7 @@ You need ReImagined installed and built once with its launcher (Title Update 4).
 
 1. Download **`Gripline Lite Installer 1.1.exe`** from the Releases page.
 2. Close the game and double-click it. Windows may say "Windows protected your PC" (the file
-   is not code-signed): click **More info › Run anyway**. Click **Install**. It finds ReImagined by itself; if not, choose the
+   is not code-signed, but the [VirusTotal scan](https://www.virustotal.com/gui/file/e5218245f6427df97086dfa385ed0b9f818096dce4ef058e4eab20de6a088f07) shows 0/69): click **More info › Run anyway**. Click **Install**. It finds ReImagined by itself; if not, choose the
    `...\ForzaHorizon1-ReImagined\project\forza-recomp` folder.
 3. Open the ReImagined launcher: **Setup › Build › Rebuild**. The first build takes a while;
    later updates of Gripline Lite only rebuild a few files (about a minute).
