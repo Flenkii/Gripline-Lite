@@ -1,9 +1,14 @@
-# Gripline Lite 1.1 for Forza Horizon 1: ReImagined
+<p align="center"><img src="installer/banner.jpg" alt="Gripline Lite for Forza Horizon 1: ReImagined" width="720"></p>
 
-<img src="installer/logo.png" width="96" align="right">
+<h1 align="center">Gripline Lite 1.1</h1>
 
-**More immersion for Forza Horizon 1, built into [Forza Horizon 1: ReImagined](https://github.com/FH1-ReImagined/ForzaHorizon1-ReImagined).**
-Everything can be changed live in game with **F6**, without restarting.
+<p align="center"><b>Walk around, drive with a 1:1 steering wheel, use a dashboard cam and change traffic and time of day, live in game.<br>
+A free add-on for <a href="https://github.com/FH1-ReImagined/ForzaHorizon1-ReImagined">Forza Horizon 1: ReImagined</a>.</b></p>
+
+<p align="center"><a href="https://github.com/Flenkii/Gripline-Lite/releases/latest"><img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20Download-Gripline%20Lite%20Installer-1e90ff?style=for-the-badge" alt="Download"></a><br>
+<a href="https://discord.gg/g83eBcrq">💬 Discord</a> · <a href="https://github.com/Flenkii/Gripline">Gripline for Forza Horizon 2</a></p>
+
+**Quick start:** download the installer › run it › **Install** › **Setup › Build › Rebuild** in the ReImagined launcher › press **F6** in game. Everything can be changed live in game, without restarting.
 
 | Feature | What it does |
 | --- | --- |
@@ -16,7 +21,7 @@ Everything can be changed live in game with **F6**, without restarting.
 | **Time of day** | Set the time: Dawn, Morning, Midday, Afternoon, Sunset or Midnight (or keep the game's own). Free roam, offline only. |
 | **Time runs** | How fast the day passes: Normal, Slow (1/4), Stopped or Fast (4x). |
 
-Gripline Lite is the little brother of [Gripline](https://github.com/Flenkii/Gripline) for Forza Horizon 2.
+Gripline Lite is the little brother of [Gripline](https://github.com/Flenkii/Gripline) for Forza Horizon 2. Questions, bugs or ideas: join the [Discord](https://discord.gg/g83eBcrq).
 
 ## Install
 
